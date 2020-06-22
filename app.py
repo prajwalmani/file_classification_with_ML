@@ -54,7 +54,7 @@ def add_freq_element(predict_list):
     '''
     tag_value=max(predict_list,key=predict_list.count)
     l=['business','entertainment','politics','sport','tech']
-    tags="Your file belongs to "+l[tag_value]+"tag"
+    tags="Your file belongs to "+l[tag_value]+" "+"tag"
     return tags
 
 
