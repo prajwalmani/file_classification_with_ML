@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<head>
+    <title>File Sorting Site</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="static\styles\style.css" rel="stylesheet">
+</head>
+<body>
+    <div class="upload-wrapper">
+        <h1>File Organizer</h1><br>
+        <header>
+               <form action="http://127.0.0.1:5000/predict" method="POST" class="col-s12"  enctype="multipart/form-data">
+                <input type="file" onchange="showFile()" name="file" enctype="multipart/form-data"> 
+                <div class="col-sm-4">
+                    <button style="margin-top:18px" type="submit">Submit</button>
+                </div>
+               </form>
+               {{err}}
+               {{tag}}
+        </header>
+        <div id="show-text"></div>
+     </div>
+     <script src="static\script.js"></script>
+</body>
+</html>

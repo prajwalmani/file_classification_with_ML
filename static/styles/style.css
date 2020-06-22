@@ -1,0 +1,48 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+
+body {
+   margin: 2em;
+   text-align: center;
+   font-family: 'Open Sans';
+   background: #ececec
+}
+.upload-wrapper {
+   background: #ffffff;  
+   margin: 30px auto;
+   max-width: 650px;
+   padding: 20px;
+   border: 2px solid #eeeeee;
+}
+header {
+   padding: 10px 0 30px;
+border-bottom: 2px solid #eeeeee;
+}
+#show-text {
+   padding: 22px 0 5px;
+   overflow-y: auto;
+   max-height: 400px;
+   width: 100%;
+}
+.error {
+   display: block;
+   color: red;
+}
+h1 {
+   font-size: 22px;
+}
+a {
+color: blue;
+font-size: 13px;
+text-decoration: none;
+}
+input[type="file"] {
+background: #cad878;
+padding: 15px 11px 18px 50px;
+border-radius: 4px;
+cursor: pointer;
+color: rgb(0, 0, 0);
+width: 199px;
+border: 2px solid #4db53f;
+outline: 0;
+}
+
