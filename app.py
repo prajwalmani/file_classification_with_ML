@@ -1,6 +1,5 @@
 from flask import Flask, render_template, request
 import os
-from docx import Document
 import pickle
 import filetype
 import filehandle
@@ -28,13 +27,13 @@ def file():
         except:
             return render_template('index.html', err=file_error)
         if kind == 'pdf':
-          predict(filehandle.pdftolist(filename=file.filename))
+          tags=predict(filehandle.pdftolist(filename=file.filename))
         else:
             try:
                 print(filetype.guess_extension(file.filename))
             except:
                 return render_template('index.html', err=file_error)
-        return
+        return render_template('index.html', tag=tags)
 
 def predict(textlist):
     '''
@@ -44,7 +43,9 @@ def predict(textlist):
     '''
     with open('classification_model', 'rb') as file:
         classi_model = pickle.load(file)
-    add_freq_element(classi_model.predict(textlist).tolist())
+    #print(classi_model.predict(textlist).tolist())
+    return add_freq_element(classi_model.predict(textlist).tolist())
+
 def add_freq_element(predict_list):
     '''
     function to find the highest frequency and map to the tags
@@ -53,7 +54,9 @@ def add_freq_element(predict_list):
     '''
     tag_value=max(predict_list,key=predict_list.count)
     l=['business','entertainment','politics','sport','tech']
-    tags="Your file belongs to"+l[tag_value]+"tag"
-    return render_template('index.html',tag=tags)
+    tags="Your file belongs to "+l[tag_value]+"tag"
+    return tags
+
+
 if __name__ == "__main__":
     app.run(debug=True)
