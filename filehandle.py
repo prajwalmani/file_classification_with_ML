@@ -1,6 +1,5 @@
 import PyPDF2
 
-
 def pdftolist(filename):
     '''
      a function to convert pdf to list
@@ -19,6 +18,6 @@ def pdftolist(filename):
         txtlist.extend(texts)
     textlist=list(filter(None, txtlist))
     textlist[:]=[item for item in textlist if item !=' ']
-    print(textlist)
+    #print(textlist)
     return textlist
 
