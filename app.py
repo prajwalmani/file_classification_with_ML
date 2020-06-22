@@ -3,6 +3,7 @@ import os
 import pickle
 import filetype
 import filehandle
+import magic
 app = Flask(__name__)
 UPLOAD_FOLDER = './uploads'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
@@ -17,25 +18,43 @@ def index():
 def file():
     if request.method == 'POST':
         file = request.files['file']
-        file.save(file.filename)
-        # with open(file.filename ,encoding='iso8859-1') as f:
-        #     linelist=f.readlines()
-        #     print(linelist)
-        file_error = "Not a valid document type \n Please select pdf or word"
+        file.save("Documents_Uploaded/"+file.filename)
+        file_error = "Not a valid document type \n Please select PDF or WORD"
+        FileType = []
         try:
-            kind = filetype.guess(file.filename).extension
+            FileType = magic.from_file("Documents_Uploaded/"+file.filename)
         except:
             return render_template('index.html', err=file_error)
-        if kind == 'pdf':
-          tags=predict(filehandle.pdftolist(filename=file.filename))
-        else:
+        FileTypeArray = []
+        FileTypeArray=FileType.split(" ")
+        if "Word" in FileTypeArray:
+            tags=predict(filehandle.wordtolist(filename=file.filename),"Word")
+            return render_template('index.html', tag=tags)
+        elif "MP4" in FileTypeArray:
+            #return render_template('index.html', err="MP4 File")
+            return render_template('index.html', err=file_error)
+        elif "PDF" in FileTypeArray:
+            tags=predict(filehandle.pdftolist(filename=file.filename),"PDF")
+            return render_template('index.html', tag=tags)
+        elif "JPEG" in FileTypeArray:
+            #return render_template('index.html', err="JPEG File")
+            return render_template('index.html', err=file_error)
+        elif "PowerPoint" in FileTypeArray:
+            #return render_template('index.html', err="PowerPoint File")
+            return render_template('index.html', err=file_error)
+        elif "Zip" in FileTypeArray:
+            ''' Certain Word Files formats are ZIP format '''
             try:
-                print(filetype.guess_extension(file.filename))
+                tags=predict(filehandle.wordtolist(filename=file.filename),"Word")
+                return render_template('index.html', tag=tags)
             except:
+                #return render_template('index.html', err="Zip File")
                 return render_template('index.html', err=file_error)
-        return render_template('index.html', tag=tags)
+        else:
+            #return render_template('index.html', err="Unknow File Format")
+            return render_template('index.html', err=file_error)
 
-def predict(textlist):
+def predict(textlist,format_name):
     '''
     a function that prefictes the given file to which tag does it belong
     :param textlist:
@@ -43,18 +62,17 @@ def predict(textlist):
     '''
     with open('classification_model', 'rb') as file:
         classi_model = pickle.load(file)
-    #print(classi_model.predict(textlist).tolist())
-    return add_freq_element(classi_model.predict(textlist).tolist())
+    return add_freq_element(classi_model.predict(textlist).tolist(),format_name)
 
-def add_freq_element(predict_list):
+def add_freq_element(predict_list,format_name):
     '''
     function to find the highest frequency and map to the tags
     :param predict_list:
     :return:
     '''
     tag_value=max(predict_list,key=predict_list.count)
-    l=['business','entertainment','politics','sport','tech']
-    tags="Your file belongs to "+l[tag_value]+"tag"
+    l=['Business','Entertainment','Politics','Sport','Tech']
+    tags="Your "+format_name+" file belongs to "+l[tag_value]+" Tag"
     return tags
 
 
