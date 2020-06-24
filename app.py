@@ -30,18 +30,9 @@ def file():
         if "Word" in FileTypeArray:
             tags=predict(filehandle.wordtolist(filename=file.filename),"Word")
             return render_template('index.html', tag=tags)
-        elif "MP4" in FileTypeArray:
-            #return render_template('index.html', err="MP4 File")
-            return render_template('index.html', err=file_error)
         elif "PDF" in FileTypeArray:
             tags=predict(filehandle.pdftolist(filename=file.filename),"PDF")
             return render_template('index.html', tag=tags)
-        elif "JPEG" in FileTypeArray:
-            #return render_template('index.html', err="JPEG File")
-            return render_template('index.html', err=file_error)
-        elif "PowerPoint" in FileTypeArray:
-            #return render_template('index.html', err="PowerPoint File")
-            return render_template('index.html', err=file_error)
         elif "Zip" in FileTypeArray:
             ''' Certain Word Files formats are ZIP format '''
             try:
