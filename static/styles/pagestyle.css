@@ -1,0 +1,26 @@
+/*-------------------------
+    Simple reset
+--------------------------*/
+
+
+*{
+    margin:0;
+    padding:0;
+}
+
+
+/*-------------------------
+    General Styles
+--------------------------*/
+
+html{
+    background-color:#ebebec;
+
+    background-image:-webkit-radial-gradient(center, #00ebeb, #005bb1);
+    background-image:-moz-radial-gradient(center, #00ebeb, #005bb1);
+    background-image:radial-gradient(center, #00ebeb, #005bb1);
+
+    min-height:900px;
+    padding-left: 10%;
+    padding-right: 10%;
+}

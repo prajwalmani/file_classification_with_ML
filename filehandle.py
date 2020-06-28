@@ -20,7 +20,7 @@ def pdftolist(filename):
         txtlist.extend(texts)
     textlist=list(filter(None, txtlist))
     textlist[:]=[item for item in textlist if item !=' ']
-    print('PDF\n',textlist)
+    print("Reading PDF Complete")
     return textlist
 
 def wordtolist(filename):
@@ -39,10 +39,8 @@ def wordtolist(filename):
         listText.append(paragraph.text)
     textlist=list(filter(None, listText))
     textlist[:]=[item for item in textlist if item !=' ']
-    print('WORD\n',textlist)
+    print("Reading WORD Complete")
     return textlist
 
-#print(pdftolist("testdata/MyResumeMiMs.pdf"))
-#print(wordtolist("testdata/MyResumeMiMs.docx"))
 
 

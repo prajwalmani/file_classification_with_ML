@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>File-Organization-Classifier</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link href="https://fonts.googleapis.com/css?family=PT+Sans+Narrow:400,700" rel='stylesheet' />
+        <link href="static/styles/pagestyle.css?v=1.5" rel="stylesheet">
+    </head>
+    <body style="margin-top:5%;margin-bottom:5%;">
+
+          <div class="jumbotron" style="padding-left: 10%;padding-right: 10%;text-align: center;">
+            <h1 class="display-4">Upload<br>PDF and WORD</h1>
+            <p class="lead">Reads the files and classifies the content by suggesting a tag</p>
+            <form method="post" action="http://127.0.0.1:5000/predict" enctype="multipart/form-data">
+                <div class="form-group">
+                    <div class="input-group input-file" name="file">
+                        <span class="input-group-btn">
+                            <button class="btn btn-primary btn-choose" type="button">Choose</button>
+                        </span>
+                        <input type="text" name="file1" class="form-control" placeholder='Choose a file...' enctype="multipart/form-data" required/>
+                        <span class="input-group-btn">
+                            <button class="btn btn-danger btn-reset" type="button">Reset</button>
+                        </span>
+                    </div>
+                </div>
+                <hr class="my-4">
+                <p style="font-size: large;">File Name<br>{{filename}}</p>
+                <p class="lead">
+                  <button class="btn btn-warning btn-lg" type="submit" >Submit</button>
+                </p>
+            </form>
+          </div>
+
+         {% if tag1: %}
+         {% block content %}
+          <div class="container" >
+            <div class="container">
+                <div class="row">
+                  <div class="col">
+                    <div class="card text-white bg-info mb-3" style="max-width: 38rem;margin-left: -10px;">
+                        <div class="card-header" style="text-align: center;font-size: large;">Naive Bayes</div>
+                        <div class="card-body">
+                          <h5 class="card-title" style="text-align: center">Tag</h5>
+                          <p class="card-text" style="text-align: center;color: yellow;">{{tag1}}</p>
+                          <h5 class="card-title" style="text-align: center">Time Taken</h5>
+                          <p class="card-text" style="text-align: center;color: yellow;">{{duration1}}</p>
+                        </div>
+                      </div>
+                  </div>
+                  <div class="col">
+                    <div class="card text-white bg-info mb-3" style="max-width: 38rem;margin-left: -10px;">
+                        <div class="card-header" style="text-align: center;font-size: large;">Decision Tree</div>
+                        <div class="card-body">
+                            <h5 class="card-title" style="text-align: center">Tag</h5>
+                            <p class="card-text" style="text-align: center;color: yellow;">{{tag2}}</p>
+                            <h5 class="card-title" style="text-align: center">Time Taken</h5>
+                            <p class="card-text" style="text-align: center;color: yellow;">{{duration2}}</p>
+                        </div>
+                      </div>
+                  </div>
+                </div>
+              </div>
+          </div>
+          {% endblock content %}
+          {% endif %}
+
+
+        <!-- JavaScript Includes -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+        <!-- Our main JS file -->
+        <script>
+            function bs_input_file() {
+            $(".input-file").before(
+                function() {
+                    if ( ! $(this).prev().hasClass('input-ghost') ) {
+                        var element = $("<input type='file' class='input-ghost' style='visibility:hidden; height:0'>");
+                        element.attr("name",$(this).attr("name"));
+                        element.change(function(){
+                            element.next(element).find('input').val((element.val()).split('\\').pop());
+                        });
+                        $(this).find("button.btn-choose").click(function(){
+                            element.click();
+                        });
+                        $(this).find("button.btn-reset").click(function(){
+                            element.val(null);
+                            $(this).parents(".input-file").find('input').val('');
+                        });
+                        $(this).find('input').css("cursor","pointer");
+                        $(this).find('input').mousedown(function() {
+                            $(this).parents('.input-file').prev().click();
+                            return false;
+                        });
+                        return element;
+                    }
+                }
+            );
+        }
+        $(function() {
+            bs_input_file();
+        });
+        </script>
+        <script src="/static/js/script.js"></script>
+
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+        <footer style="text-align: center;font-size: small;">Made By Mohammed Imran Mohsin</footer>
+    </body>
+</html>
