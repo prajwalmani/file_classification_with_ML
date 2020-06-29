@@ -1,4 +1,4 @@
-import re
+import re # Regular Expression Library
 from nltk.corpus import stopwords 
 from nltk.stem.porter import PorterStemmer 
 from nltk.stem import WordNetLemmatizer 
@@ -7,6 +7,7 @@ stop_words = set(stopwords.words("english"))
 stemmer = PorterStemmer() 
 lemmatizer = WordNetLemmatizer() 
 
+# Cleaning Text List
 def clean_textlist(textlist):
     new_textlist = []
     for text in textlist:
@@ -14,6 +15,7 @@ def clean_textlist(textlist):
     print("Cleaned Text List Ready")
     return new_textlist
 
+# Filtering Words
 def filtering_words(text):
     words = text.split()
     new_words_list = []
