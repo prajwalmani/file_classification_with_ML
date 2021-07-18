@@ -1,6 +1,5 @@
-PDF and WORD content classifier 
-
-This is an ML project to clasify PDF and WORD file content into a category 
+File Classification With ML
+This is an ML project to clasify files content into a different categories like sports,business and some more 
 
 HOW TO RUN IT:
 
