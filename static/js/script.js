@@ -1,4 +1,3 @@
-
 function bs_input_file() {
 	$(".input-file").before(
 		function() {

@@ -52,3 +52,6 @@ def wordtolist(filename):
 
     # Return the TEXTLIST
     return textlist
+
+
+

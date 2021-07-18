@@ -1,11 +1,11 @@
 import re # Regular Expression Library
-from nltk.corpus import stopwords
-from nltk.stem.porter import PorterStemmer
-from nltk.stem import WordNetLemmatizer
+from nltk.corpus import stopwords 
+from nltk.stem.porter import PorterStemmer 
+from nltk.stem import WordNetLemmatizer 
 
-stop_words = set(stopwords.words("english"))
-stemmer = PorterStemmer()
-lemmatizer = WordNetLemmatizer()
+stop_words = set(stopwords.words("english")) 
+stemmer = PorterStemmer() 
+lemmatizer = WordNetLemmatizer() 
 
 # Cleaning Text List
 def clean_textlist(textlist):
@@ -48,19 +48,7 @@ def clean_text(text):
     text = re.sub(r"\'d", " would ", text)
     text = re.sub(r"\'ll", " will ", text)
     text = re.sub(r"\'scuse", " excuse ", text)
-    text = re.sub('\W', ' ', text)
-    text = re.sub('\s+', ' ', text)
+#    text = re.sub('\W', ' ', text)
+#    text = re.sub('\s+', ' ', text)
     text = text.strip(' ')
-    return text
-
-def call_textprocess_func(text):
-    '''
-    function to call other main functions
-    :param text:
-    :return text:
-    '''
-    text=clean_textlist(text)
-    text=filtering_words(text)
-    text=preprocess(text)
-    text=clean_text(text)
     return text
